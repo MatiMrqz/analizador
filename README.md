@@ -22,7 +22,7 @@ ASSIGN-CLAUSE ::= 'ASSIGN' [ 'TO'] { (ASSIGNMENT-NAME | LITERAL )}+
 |ASSIGNMENT_NAME|assignment_name|
 |LITERAL|literal|
 
-## Estructura del Proyecto
+# Estructura del Proyecto
 El proyecto está organizado en los siguientes archivos:
 
 - `lexico.l`: Archivo de definición de Flex para el análisis léxico.
@@ -34,13 +34,13 @@ El proyecto está organizado en los siguientes archivos:
 - `tests/input.txt`: Archivo de entrada para ejecutable. **Colocar en este archivo la cadena a testear.**
 - `README.md`: Este archivo.
 
-## Requisitos
+# Requisitos
 Para compilar y ejecutar el proyecto, necesitas tener instalados Flex y Bison. Puedes instalarlos en una distribución de Linux basada en Debian con el siguiente comando:
 
 ```sh
 sudo apt-get install flex bison
 ```
-## Compilación
+# Compilación
 Para compilar el proyecto, sigue los siguientes pasos:
 
 1. Clona el repositorio:
@@ -62,12 +62,12 @@ gcc -o ejecutable sintactico.tab.c lex.yy.c -ll
 # Windows
 gcc -o ejecutable sintactico.tab.c lex.yy.c -lfl -lm
 ```
-## Uso
+# Uso
 Para ejecutar el analizador sobre un archivo de entrada
 1. Editar el archivo `input.txt`con la cadena a analizar
 2. Correr `ejecutable` y ver resultados por salida de consola
 
-Contribución
+# Contribución
 Si deseas contribuir al proyecto, por favor sigue los siguientes pasos:
 
 - Haz un fork del repositorio.
