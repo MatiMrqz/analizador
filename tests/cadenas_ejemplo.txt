@@ -1,0 +1,8 @@
+--- CADENAS VÁLIDAS ---
+ASSIGN literal
+ASSIGN TO literal assignment_name literal
+data_records
+
+--- CADENAS INVÁLIDAS ---
+ASSIGN TO TO literal
+ASSIGN value_of
