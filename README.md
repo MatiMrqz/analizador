@@ -1,3 +1,4 @@
+[https://github.com/MatiMrqz/analizador](https://github.com/MatiMrqz/analizador)
 # Analizador Sintáctico y Semántico
 Este proyecto es un analizador sintáctico y semántico diseñado utilizando las herramientas Flex y Bison. El analizador procesa archivos de texto y verifica su conformidad con una gramática específica. La sintaxis que reconoce se basa en una definición de reglas para `FILE-AND-SORT` y `ASSIGN-CLAUSE`.
 
@@ -10,17 +11,6 @@ FILE-AND-SORT ::= ([VALUE-OF-CLAUSE ]| [ DATA-RECORDS-CLAUSE ]| [ LINAGE-CLAUSE 
 ```
 ASSIGN-CLAUSE ::= 'ASSIGN' [ 'TO'] { (ASSIGNMENT-NAME | LITERAL )}+
 ```
-### Tabla de Lexemas
-|Token  |Valor  |
-|-------|-------|
-|ASSIGN |ASSIGN|
-|TO    | TO  |
-| VALUE_OF_CLAUSE|value_of|
-|DATA_RECORDS_CLAUSE|data_records|
-|LINAGE_CLAUSE|linage_clause|
-|RECORDING_MODE_CLAUSE|recording_mode|
-|ASSIGNMENT_NAME|assignment_name|
-|LITERAL|literal|
 
 # Estructura del Proyecto
 El proyecto está organizado en los siguientes archivos:
@@ -29,9 +19,10 @@ El proyecto está organizado en los siguientes archivos:
 - `sintactico.y`: Archivo de definición de Bison para el análisis sintáctico.
 - `tokens.h`: Definiciones de tokens compartidas entre Flex y Bison.
 - `EspeSintacticas.txt`: Reglas semánticas asignadas para la realización del ejercicio
-- `tests/cadenas_ejemplo.txt`: Casos de prueba. 2 cadenas válidas + 2 inválidas.
-- `tests/ejecutable`: Ejecutable (compilado para posix no windows)
-- `tests/input.txt`: Archivo de entrada para ejecutable. **Colocar en este archivo la cadena a testear.**
+- `tests/CadX_OK`: Casos de prueba. Cadena válida: Archivo de input + Salida de analizador
+- `tests/CadX_ERROR`: Casos de prueba. Cadena inválida: Archivo de input + Salida de analizador
+- `analizador`: Ejecutable (compilado para posix)
+- `input.txt`: Archivo de entrada para ejecutable.
 - `README.md`: Este archivo.
 
 # Requisitos
@@ -64,8 +55,8 @@ gcc -o ejecutable sintactico.tab.c lex.yy.c -lfl -lm
 ```
 # Uso
 Para ejecutar el analizador sobre un archivo de entrada
-1. Editar el archivo `input.txt`con la cadena a analizar
-2. Correr `ejecutable` y ver resultados por salida de consola
+1. Editar el archivo `input.txt` con la cadena a analizar
+2. Correr `./analizador input.txt` y ver resultados por salida de consola. Tambien es posible ejecutar los archivos de test de la carpeta mediante el comando `./analizador tests/CadX_ESTADO/input.txt` donde _X_ es la cadena a testear y _ESTADO_ puede ser ERROR u OK.
 
 # Contribución
 Si deseas contribuir al proyecto, por favor sigue los siguientes pasos:
