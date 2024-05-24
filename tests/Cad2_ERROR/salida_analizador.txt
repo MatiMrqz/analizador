@@ -1,0 +1,13 @@
+Detalle del error: Se esperaba un token tipo ASSIGNMENT-NAME | LITERAL
+Detalle del error: Se detectó un error en la sentencia ASSIGN_CLAUSE
+
+===========================TABLA DE SIMBOLOS VALIDOS===========================
+|                LEXEMAS               |                 TOKENS               |
+---------------------------------------+---------------------------------------
+|                ASSIGN                |                ASSIGN                |
+|                  TO                  |                  TO                  |
+|                  TO                  |                  TO                  |
+|                literal               |         ASSIGN_CLAUSE_SUBLIST        |
+===============================================================================
+
+El analisis ha concluido
