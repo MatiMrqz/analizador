@@ -1,1 +1,1 @@
-ASSIGN value_of
+lhs = operation call_args do compstmt

@@ -1,1 +1,1 @@
-ASSIGN TO TO literal
+lhs operation call_args

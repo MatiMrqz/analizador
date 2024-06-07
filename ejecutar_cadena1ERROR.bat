@@ -1,0 +1,1 @@
+analizador.exe ./tests/Cad1_ERROR/input.txt

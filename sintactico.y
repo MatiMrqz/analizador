@@ -11,39 +11,30 @@ int DibujarTablaDeTokens();
 
 int Dibujar=0, Recursion=0,MaxRecursion;
 char *Lexema[100], *Token[100];
-int SubIndice=0, SubIndiceMax, NumLineas=1, EstadoScanner=0;
+int SubIndice=0, SubIndiceMax, NumLineas=1, EstadoScanner=0,x;
 %}
 
-%token ASSIGN TO VALUE_OF_CLAUSE DATA_RECORDS_CLAUSE LINAGE_CLAUSE RECORDING_MODE_CLAUSE ASSIGN_CLAUSE_SUBLIST NL
+%token DO END LHS EQ COMMAND BLOCK_VAR C_STMT NL
 %%
 /* REGLAS DE PRODUCCION */
 
 /*AXIOMA*/
-FILE_AND_SORT : VALUE_OF_CLAUSE NL        { DibujarTablaDeTokens(); } 
-               | VALUE_OF_CLAUSE error NL    { yyerrok; printf("Detalle del error: No se esperaba valor luego del token VALUE_OF_CLAUSE"); DibujarTablaDeTokens(); } 
-               | DATA_RECORDS_CLAUSE NL    { DibujarTablaDeTokens(); }
-               | DATA_RECORDS_CLAUSE error NL    { yyerrok; printf("Detalle del error: No se esperaba valor luego del token DATA_RECORDS_CLAUSE"); DibujarTablaDeTokens(); } 
-               | LINAGE_CLAUSE NL         { DibujarTablaDeTokens(); }
-               | LINAGE_CLAUSE error NL    { yyerrok; printf("Detalle del error: No se esperaba valor luego del token LINAGE_CLAUSE"); DibujarTablaDeTokens(); } 
-               | RECORDING_MODE_CLAUSE NL { DibujarTablaDeTokens(); }
-               | RECORDING_MODE_CLAUSE error NL    { yyerrok; printf("Detalle del error: No se esperaba valor luego del token RECORDING_MODE_CLAUSE"); DibujarTablaDeTokens(); } 
-               | ASSIGN_CLAUSE NL        { DibujarTablaDeTokens(); }
-               | ASSIGN_CLAUSE error NL    { yyerrok; printf("Detalle del error: Se detectó un error en la sentencia ASSIGN_CLAUSE"); DibujarTablaDeTokens(); } 
-               | error NL {
-                    yyerrok;
-	               printf("Detalle del error: No se encontró un token válido\n");
-               }
-               ;
+STMT : LHS EQ COMMAND DO BLOCK_VAR C_STMT END NL        { DibujarTablaDeTokens(); } 
+			| LHS EQ COMMAND DO C_STMT END NL  { DibujarTablaDeTokens(); } 
+			| LHS EQ COMMAND NL  { DibujarTablaDeTokens(); } 
+			| LHS EQ COMMAND DO BLOCK_VAR C_STMT error NL    { yyerrok; printf("Detalle del error: Se esperaba el terminal 'end'"); DibujarTablaDeTokens(); } 
+			| LHS EQ COMMAND DO C_STMT error NL    { yyerrok; printf("Detalle del error: Se esperaba el terminal 'end'"); DibujarTablaDeTokens(); } 
+			| LHS EQ COMMAND DO BLOCK_VAR error NL    { yyerrok; printf("Detalle del error: Se esperaba un token del tipo COMPSTMT"); DibujarTablaDeTokens(); } 
+			| LHS EQ COMMAND DO error NL    { yyerrok; printf("Detalle del error: Se esperaba un token del tipo COMPSTMT"); DibujarTablaDeTokens(); } 
+			| LHS EQ COMMAND error NL    { yyerrok; printf("Detalle del error: Se esperaba un terminal 'do'"); DibujarTablaDeTokens(); } 
+			| LHS EQ error NL    { yyerrok; printf("Detalle del error: Se esperaba un token del tipo COMMAND"); DibujarTablaDeTokens(); } 
+			| LHS error NL    { yyerrok; printf("Detalle del error: Token inválido. Quizas debió colocar '='"); DibujarTablaDeTokens(); } 
+			| error NL {
+					yyerrok;
+				printf("Detalle del error: No se encontró un token válido\n");
+			}
+			;
 
-ASSIGN_CLAUSE :  ASSIGN ASSIGN_CLAUSE_SUBLIST
-               | ASSIGN TO ASSIGN_CLAUSE_SUBLIST
-               | ASSIGN TO error {
-	               printf("Detalle del error: Se esperaba un token tipo ASSIGNMENT-NAME | LITERAL\n");
-               }
-               | ASSIGN error {
-	               printf("Detalle del error: Se esperaba un token tipo TO | ASSIGNMENT-NAME | LITERAL\n");
-               }
-               ;
 
 %%
 /* La llamada a la rutina de error */
@@ -54,10 +45,7 @@ int yyerror (char *s) {
 }
 /* La llamada a la accion principal */
 extern FILE *yyin;
-int main(argc, argv)
-int argc;
-char **argv;
-{
+int main(int argc,char **argv){
 	FILE *ArchEnt;
 	if (argc == 2)
 	{
@@ -74,10 +62,11 @@ char **argv;
 /* La llamada a la finalizacion del analizador */
 int yywrap() {
      if(EstadoScanner<2){
-          printf("\n**La cadena ingresada es válida** \n");
+          printf("\n**La cadena ingresada es valida** \n");
      }
 	EstadoScanner=2;
-	printf("El analisis ha concluido\n");
+	printf("El analisis ha concluido\nIngrese 0 para salir");
+	scanf("%d",&x);
 	return 1;
 }
 int DibujarTablaDeTokens(){

@@ -5,41 +5,54 @@ int CargarSubCadenas(char* NomToken);
 extern char *Lexema[100], *Token[100];
 extern int SubIndice, SubIndiceMax, NumLineas;
 %}
-separador ([ \t])+
-literal "literal"
-assignment_name "assignment_name"
-linage_clause "linage_clause"
-assign_clause_sublist ({separador}*{literal}|{separador}*{assignment_name})+
+space ([ \t])+
+eq "="
+b_var "block_var"
+wrapped_bvar "|"{space}*{b_var}?{space}*"|"
+c_stmt "compstmt"
+lhs "lhs"
+c_args "call_args"
+op "operation"
+cmd ({op}{space}*{c_args}|"super"{space}*{c_args})
 %%
 
-{separador} {/*no hace nada*/}
+{space} {/*no hace nada*/}
 
-"ASSIGN" { 
-  CargarSubCadenas("ASSIGN");
-  return (ASSIGN);}
-"TO" { 
-  CargarSubCadenas("TO");
-  return (TO);}
-"value_of" { 
-  CargarSubCadenas("VALUE_OF_CLAUSE");
-  return (VALUE_OF_CLAUSE);}
-"data_records" { 
-  CargarSubCadenas("DATA_RECORDS_CLAUSE");
-  return (DATA_RECORDS_CLAUSE);}
-{linage_clause} { 
-  CargarSubCadenas("LINAGE_CLAUSE");
-  return (LINAGE_CLAUSE);}
-"recording_mode" { 
-  CargarSubCadenas("RECORDING_MODE_CLAUSE");
-  return (RECORDING_MODE_CLAUSE);}
-{assign_clause_sublist} {
-  CargarSubCadenas("ASSIGN_CLAUSE_SUBLIST");
-  return (ASSIGN_CLAUSE_SUBLIST);}
+"do" {
+  CargarSubCadenas("do");
+  return (DO);
+}
+"end" {
+  CargarSubCadenas("end");
+  return (END);
+}
+{lhs} {
+  CargarSubCadenas("LHS");
+  return (LHS);
+}
+{eq} {
+  CargarSubCadenas("=");
+  return (EQ);
+}
+{cmd} {
+  CargarSubCadenas("COMMAND");
+  return (COMMAND);
+}
+{wrapped_bvar} {
+  CargarSubCadenas("|[BLOCK_VAR]|");
+  return (BLOCK_VAR);
+}
+{c_stmt} {
+  CargarSubCadenas("COMPSTMT");
+  return (C_STMT);
+}
+
 \n  {
   SubIndiceMax = SubIndice;
   SubIndice=0;
   NumLineas++;
-  return (NL);}
+  return(NL);
+  }
 .   {
   return yytext[0];
   }

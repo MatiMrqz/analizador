@@ -1,0 +1,1 @@
+analizador.exe ./tests/Cad2_OK/input.txt

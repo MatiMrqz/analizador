@@ -1,0 +1,15 @@
+MODO DE PRUEBA AUTOMÁTICO
+Para testear el analizador ejecutar los archivos .bat incluídos en la carpeta:
+- ejecutar_cadena1OK.bat
+  Inicializa el analizador con el archivo tests/Cad1_OK/input.txt como entrada.
+- ejecutar_cadena2OK.bat
+  Inicializa el analizador con el archivo tests/Cad2_OK/input.txt como entrada.
+- ejecutar_cadena1ERROR.bat
+  Inicializa el analizador con el archivo tests/Cad1_ERROR/input.txt como entrada.
+- ejecutar_cadena2ERROR.bat
+  Inicializa el analizador con el archivo tests/Cad2_ERROR/input.txt como entrada.
+
+MODO DE PRUEBA MANUAL
+Desde un terminal abrir el siguiente ejecutable colocando como argumento de entrada
+la ubicación del archivo a testear. Ej:
+analizador.exe .input.txt
